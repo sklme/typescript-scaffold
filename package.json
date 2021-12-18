@@ -1,0 +1,49 @@
+{
+  "name": "typescript-scaffold",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./lib/index.js",
+  "scripts": {
+    "dev:comment": "启动开发环境",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts  -d --show-log 20 -x we",
+    "prepare:comment": "安装husky",
+    "prepare": "husky install",
+    "build:comment": "安装husky",
+    "build": "rm -rf lib && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sklthegoodman/typescript-scaffold.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sklthegoodman/typescript-scaffold/issues"
+  },
+  "homepage": "https://github.com/sklthegoodman/typescript-scaffold#readme",
+  "devDependencies": {
+    "@tsconfig/node16": "^1.0.2",
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/inquirer": "^8.1.3",
+    "@types/node": "^16.11.12",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "eslint": "^8.3.0",
+    "eslint-config-prettier": "^8.3.0",
+    "husky": "^7.0.4",
+    "jsdoc": "^3.6.7",
+    "lint-staged": "^12.1.2",
+    "prettier": "2.5.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "chalk": "^5.0.0",
+    "chalk-pipe": "^5.1.1",
+    "clear-console": "^1.1.0",
+    "commander": "^8.3.0",
+    "inquirer": "^8.2.0",
+    "reflect-metadata": "^0.1.13",
+    "shelljs": "^0.8.4"
+  }
+}
