@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "./lib/index.js",
+  "bin": "./lib/index.js",
   "scripts": {
     "dev:comment": "启动开发环境",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts  -d --show-log 20 -x we",
