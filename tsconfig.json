@@ -5,7 +5,14 @@
     "baseUrl": "./",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "pretty": true,
+    "declaration": true,
+    "paths": {
+      "@": ["src/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "lib"]
