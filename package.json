@@ -1,5 +1,5 @@
 {
-  "name": "typescript-scaffold",
+  "name": "@wrynnsun/ts-cli",
   "version": "1.0.0",
   "description": "",
   "main": "./lib/index.js",
