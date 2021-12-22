@@ -29,6 +29,8 @@
     "@types/node": "^16.11.12",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "^8.3.0",
     "eslint-config-prettier": "^8.3.0",
     "husky": "^7.0.4",
@@ -46,5 +48,10 @@
     "inquirer": "^8.2.0",
     "reflect-metadata": "^0.1.13",
     "shelljs": "^0.8.4"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
