@@ -11,7 +11,7 @@
     "prepare": "husky install",
     "build:comment": "安装husky",
     "build": "rm -rf lib && tsc",
-    "changelog: comment": "生成changelog",
+    "changelog:comment": "生成changelog",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md && git commit -m 'chore: CHANGELOG'"
   },
   "repository": {
