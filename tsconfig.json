@@ -10,8 +10,9 @@
     "noFallthroughCasesInSwitch": true,
     "pretty": true,
     "declaration": true,
+    "rootDirs": ["./src", "."],
     "paths": {
-      "@": ["src/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src/**/*"],

@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "./lib/index.js",
-  "bin": "./lib/index.js",
+  "bin": {
+    "tscli": "./lib/index.js"
+  },
   "scripts": {
     "dev:comment": "启动开发环境",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts  -d --show-log 20 -x we",
+    "dev:watch:comment": "",
+    "dev:watch": "tsc --watch",
     "prepare:comment": "安装husky",
     "prepare": "husky install",
     "build:comment": "安装husky",
@@ -29,6 +33,7 @@
     "@tsconfig/recommended": "^1.0.1",
     "@types/inquirer": "^8.1.3",
     "@types/node": "^16.11.12",
+    "@types/shelljs": "^0.8.10",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "commitizen": "^4.2.4",
