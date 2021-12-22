@@ -9,3 +9,4 @@
 ### Features
 
 - 测试 ([ac2d6e9](https://github.com/sklthegoodman/typescript-scaffold/commit/ac2d6e95c772aceb1e2e9c49f0b0f49750d74188))
+- **create:** 命令初始化 ([110125b](https://github.com/sklthegoodman/typescript-scaffold/commit/110125b2274ba8d648220719c515ff884adf2979))
