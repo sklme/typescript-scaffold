@@ -7,7 +7,7 @@ function xx(s: string) {
 }
 
 export function xx1(xx: string) {
-  return xx + "1234";
+  return xx + "12345";
 }
 
 export default xx;
