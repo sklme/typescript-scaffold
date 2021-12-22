@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-echo '进入cimmitizen的流程...'
-exec < /dev/tty && node_modules/.bin/cz --hook || true
+# echo '进入cimmitizen的流程...'
+# exec < /dev/tty && node_modules/.bin/cz --hook || true
