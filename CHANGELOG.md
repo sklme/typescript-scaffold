@@ -1,9 +1,11 @@
-# 1.0.0 (2021-12-22)
+# 1.0.0 (2021-12-23)
 
 ### Bug Fixes
 
 - 测试 fix ([65805be](https://github.com/sklthegoodman/typescript-scaffold/commit/65805be97105f76aedc3f88144835ea3c2ea7ab2))
+- 解决 ansi-regex 的安全问题 ([c129e2a](https://github.com/sklthegoodman/typescript-scaffold/commit/c129e2ab79668932e3f666baf71d3fe4dcd36554))
 - 生成 changelog 的脚本 ([fd30093](https://github.com/sklthegoodman/typescript-scaffold/commit/fd3009362d5375e14a419f2c8a3ed3d28b9858d6))
+- **依赖:** 更新 chalk 的依赖,因为>5.0 不支持 commonjs ([9a3064b](https://github.com/sklthegoodman/typescript-scaffold/commit/9a3064b4c9b47534f354bacf0af49253145d91f5))
 - changelog ([cb169dd](https://github.com/sklthegoodman/typescript-scaffold/commit/cb169dd0a4dc016de9538ad8931463c3cc65d8bb))
 
 ### Features
