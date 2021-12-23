@@ -15,7 +15,7 @@ export default function createNewApp(name: string) {
 function checkDirIsExist(appName: string) {
   const fullPath = resolve(process.cwd(), appName);
   if (existsSync(fullPath)) {
-    console.log(`${fullPath} 目录已经存在`);
+    console.log(`${fullPath} 路径已经已经存在`);
     process.exit(1);
   }
   console.log(fullPath);
