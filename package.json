@@ -57,6 +57,9 @@
     "reflect-metadata": "^0.1.13",
     "shelljs": "^0.8.4"
   },
+  "resolutions": {
+    "commitizen/**/ansi-regex": "~5.0.1"
+  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
