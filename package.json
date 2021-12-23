@@ -49,7 +49,7 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
-    "chalk": "^5.0.0",
+    "chalk": "^4",
     "chalk-pipe": "^5.1.1",
     "clear-console": "^1.1.0",
     "commander": "^8.3.0",

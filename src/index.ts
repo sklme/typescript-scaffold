@@ -5,7 +5,7 @@ import createNewApp from "./create";
 // console.log(pjson.version);
 
 program
-  .version("1.0.")
+  .version("1.0.0")
   .command("create <appName>")
   .description("创建新的项目")
   .action((name: string) => {
