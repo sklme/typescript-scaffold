@@ -1,4 +1,4 @@
-# 1.0.0 (2021-12-23)
+## 0.0.1 (2021-12-26)
 
 ### Bug Fixes
 
@@ -11,4 +11,5 @@
 ### Features
 
 - 测试 ([ac2d6e9](https://github.com/sklthegoodman/typescript-scaffold/commit/ac2d6e95c772aceb1e2e9c49f0b0f49750d74188))
+- 检查路径是否已经被占用 ([ec9dd37](https://github.com/sklthegoodman/typescript-scaffold/commit/ec9dd3775e9e52775afe534e2ad9c1b6cbd20117))
 - **create:** 命令初始化 ([110125b](https://github.com/sklthegoodman/typescript-scaffold/commit/110125b2274ba8d648220719c515ff884adf2979))
