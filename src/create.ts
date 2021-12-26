@@ -1,8 +1,8 @@
 import { resolve } from "path";
 import { existsSync } from "fs";
-import { listColors } from "./util/colorText.js";
+import log from "./util/logUtil.js";
 
-listColors();
+log.success("我最傻了", "This is a Shit");
 
 export default function createNewApp(name: string) {
   console.log("项目名字是", name);
