@@ -1,6 +1,6 @@
 import { resolve } from "path";
 import { existsSync } from "fs";
-import { listColors } from "./util/colorText";
+import { listColors } from "./util/colorText.js";
 
 listColors();
 

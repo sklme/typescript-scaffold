@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { program } from "commander";
-import createNewApp from "./create";
+import createNewApp from "./create.js";
 // import pjson from "../package.json";
 // console.log(pjson.version);
 
