@@ -5,11 +5,11 @@ import figures from "figures";
 enum Colors {
   error = "#e34d59",
   warn = "#d35a21",
-  info = "#f3f3f3",
-  success = "##078d5c",
+  info = "#699ef5",
+  success = "#078d5c",
 }
 enum BgColor {
-  error = "#242424",
+  error = "#111111",
   warn = "",
   info = "",
   success = "",
@@ -29,18 +29,24 @@ function logFunc(
   const bgColor = BgColor[propName];
   // 取出icon
   let icon = figures.info;
+  // todo 创建一个库，同时支持不支持unicode的fallback
   switch (propName) {
     case "error":
-      icon = figures.cross;
+      // icon = figures.cross;
+      icon = "\u274c";
       break;
     case "warn":
-      icon = figures.warning;
+      // icon = figures.warning;
+      icon = "\u26a0\ufe0f ";
+      // icon = "\u2757";
       break;
     case "info":
-      icon = figures.info;
+      // icon = figures.info;
+      icon = "\u2139\ufe0f ";
       break;
     case "success":
-      icon = figures.tick;
+      // icon = figures.tick;
+      icon = "\u2705";
       break;
   }
 
