@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { program } from "commander";
-import createNewApp from "./create.js";
+import Initer from "./create.js";
 
 program
   .version("1.0.0")
@@ -8,7 +8,8 @@ program
     isDefault: true,
   })
   .description("创建新的项目")
-  .action((name: string) => {
-    createNewApp(name);
+  .action(async (name: string) => {
+    const initer = new Initer(name);
+    await initer.main();
   })
-  .parse();
+  .parseAsync();
