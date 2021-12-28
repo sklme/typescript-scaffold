@@ -2,7 +2,7 @@
 import { program } from "commander";
 import Initer from "./create.js";
 
-program
+void program
   .version("1.0.0")
   .command("create <appName>", {
     isDefault: true,

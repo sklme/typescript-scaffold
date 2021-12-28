@@ -1,7 +1,9 @@
-import { readFileSync, writeFileSync } from "fs";
+import { writeFileSync } from "fs";
 import os from "os";
+import path from "path";
 import shell from "shelljs";
 import pjson from "./congfigTemplate/_package.js";
+import { log } from "../util/decorators.js";
 
 interface PackageJSON {
   name: string;
@@ -10,37 +12,63 @@ interface PackageJSON {
   type: string;
   version: string;
   description: string;
-  scripts: {};
+  scripts: Record<string, unknown>;
   devDependencies: Record<string, string>;
   dependencies: Record<string, string>;
-  [k: string]: any;
+  [k: string]: unknown;
 }
 
-console.log(process.cwd());
-
 export default class PackgeHandler {
+  // 初始package.json
   initJSON: PackageJSON;
+  // env
+  env: "yarn" | "npm" | undefined;
+  // 项目的绝对地址
+  appAbsPath: string;
+
   constructor(public appName: string) {
     this.initJSON = Object.assign({}, pjson, {
       name: appName,
       author: os.userInfo().username,
     });
 
-    const yarnResult = shell.exec("yarn -v");
-    console.log(yarnResult);
+    this.appAbsPath = path.resolve(process.cwd(), appName);
+
+    // 监测环境
+    this.detectYarnOrNPM();
   }
 
-  // todo 建立一个方法，决定yarn或者npm环境
+  // 检查环境，决定使用npm或者yarn
+  detectYarnOrNPM() {
+    const yarnResult = shell.exec("yarn -v");
+    if (yarnResult.code === 0) {
+      this.env = "yarn";
+      return "yarn";
+    }
 
+    const npmResult = shell.exec("npm -v");
+    if (npmResult.code === 0) {
+      this.env = "npm";
+      return "npm";
+    }
+
+    process.exit(1);
+  }
+
+  /**
+   * 初始化package.json
+   */
+  @log
   initPackageJSON() {
     // 初始化packge.json
     writeFileSync(
-      "./package.json",
+      path.resolve(this.appAbsPath, "./package.json"),
       JSON.stringify(this.initJSON, undefined, 2),
     );
-
-    // 安装这些东西
   }
 
-  initTypeScript() {}
+  /**
+   * 初始化typescript环境
+   */
+  // initTypeScript() {}
 }

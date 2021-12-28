@@ -1,4 +1,4 @@
-import inquirer from "inquirer";
+import inquirer, { CheckboxQuestion } from "inquirer";
 import path from "path";
 import dirHandler from "./dirHandler.js";
 import logUtil from "./util/logUtil.js";
@@ -33,7 +33,7 @@ export default class AppIniter {
     logUtil.info(`选择的功能:`, ...feats);
 
     // 初始化packge.json
-    // this.packageHandler.initPackageJSON();
+    this.packageHandler.initPackageJSON();
   }
 
   async chooseFeat() {
@@ -64,11 +64,11 @@ export default class AppIniter {
             checked: true,
           },
         ],
-      },
+      } as CheckboxQuestion,
     ]);
 
-    this.feats = feature;
+    this.feats = feature as string[];
 
-    return feature;
+    return feature as string[];
   }
 }

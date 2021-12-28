@@ -8,16 +8,16 @@ module.exports = {
     ecmaVersion: 2020,
     sourceType: "module",
     project: "./tsconfig.json",
-    tsconfigRootDir: __dirname,
+    extraFileExtensions: [".cjs"],
   },
   plugins: ["@typescript-eslint"],
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    // 'prettier',
+    "prettier",
   ],
-  ignorePatterns: [".eslintrc.js", "tsconfig.json"],
+  ignorePatterns: [".eslintrc.cjs", "tsconfig.json"],
   overrides: [
     {
       files: ["*.ts", "*.tsx"],
@@ -25,11 +25,11 @@ module.exports = {
         // The core 'no-unused-vars' rules (in the eslint:recommeded ruleset)
         // does not work with type definitions
         "no-unused-vars": "off",
-        "@typescript-eslint/no-unsafe-return": "off",
-        "@typescript-eslint/no-unsafe-call": "off",
-        "@typescript-eslint/no-unsafe-assignment": "off",
-        "@typescript-eslint/no-unsafe-argument": "off",
-        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-return": "warn",
+        "@typescript-eslint/no-unsafe-call": "warn",
+        "@typescript-eslint/no-unsafe-assignment": "warn",
+        "@typescript-eslint/no-unsafe-argument": "warn",
+        "@typescript-eslint/no-unsafe-member-access": "warn",
       },
     },
   ],
