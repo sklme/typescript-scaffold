@@ -3,6 +3,7 @@ import os from "os";
 import path from "path";
 import shell from "shelljs";
 import pjson from "./congfigTemplate/_package.js";
+import tsconfig from "./congfigTemplate/_tsconfig.js";
 import { log } from "../util/decorators.js";
 import logUtil from "../util/logUtil.js";
 
@@ -113,11 +114,11 @@ export default class PackgeHandler {
     if (this.env) {
       let command = "";
       if (this.env === "yarn") {
-        command = `yarn add ${packageName}@${options.version} ${
+        command = `yarn add ${packageName}@${options.version ?? ""} ${
           options.saveDev ? "--dev" : ""
         }`;
       } else if (this.env === "npm") {
-        command = `npm install ${packageName}@${options.version} ${
+        command = `npm install ${packageName}@${options.version ?? ""} ${
           options.saveDev ? "--save-dev" : ""
         }`;
       }
@@ -166,5 +167,6 @@ export default class PackgeHandler {
     );
 
     // 写入typescript的配置
+    this.addFile("tsconfig.json", JSON.stringify(tsconfig, undefined, 2));
   }
 }
