@@ -6,6 +6,7 @@ import pjson from "./congfigTemplate/_package.js";
 import tsconfig from "./congfigTemplate/_tsconfig.js";
 import { log } from "../util/decorators.js";
 import logUtil from "../util/logUtil.js";
+import { tryLogExit } from "../util/util.js";
 
 interface PackageJSON {
   name: string;
@@ -36,7 +37,7 @@ export default class PackgeHandler {
 
     this.appAbsPath = path.resolve(process.cwd(), appName);
 
-    // 监测环境
+    // 检查yarn还是npm环境
     this.detectYarnOrNPM();
   }
 
@@ -54,6 +55,7 @@ export default class PackgeHandler {
       return "npm";
     }
 
+    logUtil.error("没有监测到npm或yarn");
     process.exit(1);
   }
 
@@ -89,13 +91,9 @@ export default class PackgeHandler {
       process.exit(1);
     }
 
-    try {
+    tryLogExit(function () {
       shell.exec(command);
-    } catch (e) {
-      logUtil.error(`${packageNames.join(", ")}安装失败`);
-      console.log(e);
-      process.exit(1);
-    }
+    }, `${packageNames.join(", ")}安装失败`);
   }
 
   @log
@@ -123,17 +121,19 @@ export default class PackgeHandler {
         }`;
       }
 
-      try {
-        shell.exec(command);
-      } catch (e) {
-        logUtil.error(`${packageName}安装失败`);
-        console.log(e);
-        process.exit(1);
-      }
+      tryLogExit(shell.exec, `${packageName}安装失败`, command);
     } else {
       logUtil.error("没有检测到yarn或者npm");
       process.exit(1);
     }
+  }
+
+  /**
+   * 根据配置，安装选择的包
+   */
+  main() {
+    // 安装typescript
+    this.initTypeScript();
   }
 
   /**
