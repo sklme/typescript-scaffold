@@ -2,7 +2,7 @@
  * log的装饰器构造函数
  * @param name log的名字
  */
-function log(name: string): void;
+function log(name: string): (...args: any[]) => any;
 /**
  * log装饰器
  * @param target 装饰的原型
@@ -12,27 +12,27 @@ function log(name: string): void;
 function log(
   target: unknown,
   pName: string,
-  descriptor: TypedPropertyDescriptor<(...args: unknown[]) => unknown>,
+  descriptor: TypedPropertyDescriptor<(...args: any[]) => any>,
 ): void;
 function log(
   targetOrName: unknown,
   pName?: string,
-  descriptor?: TypedPropertyDescriptor<(...args: unknown[]) => unknown>,
+  descriptor?: TypedPropertyDescriptor<(...args: any[]) => any>,
 ) {
   // 传递进来的是函数的log name，返回一个装饰器
   if (typeof targetOrName === "string") {
     return function (
       target: unknown,
       pName: string,
-      descriptor: TypedPropertyDescriptor<(...args: unknown[]) => unknown>,
+      descriptor: TypedPropertyDescriptor<(...args: any[]) => any>,
     ) {
       const originMethod = descriptor.value;
       descriptor.value = function (...args: unknown[]) {
         console.log(
-          `执行${targetOrName}(${pName})， 参数: [${args.join(", ")}]...`,
+          `执行 ${targetOrName}(${pName})， 参数: [${args.join(", ")}]...`,
         );
         originMethod && originMethod.apply(this, args);
-        console.log(`结束执行${targetOrName}(${pName})`);
+        console.log(`结束执行 ${targetOrName}(${pName})`);
       };
     };
   }
@@ -40,9 +40,9 @@ function log(
   if (descriptor && pName) {
     const originMethod = descriptor?.value;
     descriptor.value = function (...args: unknown[]) {
-      console.log(`开始执行${pName || ""}，参数: [${args.join(", ")}]...`);
+      console.log(`开始执行 ${pName || ""}，参数: [${args.join(", ")}]...`);
       originMethod && originMethod.apply(this, args);
-      console.log(`结束执行${pName || ""}`);
+      console.log(`结束执行 ${pName || ""}`);
     };
   }
 }

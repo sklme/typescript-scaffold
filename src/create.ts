@@ -34,6 +34,9 @@ export default class AppIniter {
 
     // 初始化packge.json
     this.packageHandler.initPackageJSON();
+
+    // 安装typescript系列
+    this.packageHandler.initTypeScript();
   }
 
   async chooseFeat() {
