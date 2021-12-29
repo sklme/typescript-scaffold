@@ -218,4 +218,12 @@ export default class PackgeHandler {
     this.addFile(".prettierignore", prettierignore);
     this.addFile(".prettierrc.json", prettierrc);
   }
+
+  @log("husky安装")
+  initHusky() {
+    // 安装依赖
+    this.installPackages(["husky", "lint-staged"], {
+      saveDev: true,
+    });
+  }
 }
