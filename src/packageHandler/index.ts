@@ -8,6 +8,7 @@ import eslintConfig from "./congfigTemplate/_eslintrc.js";
 import { log } from "../util/decorators.js";
 import logUtil from "../util/logUtil.js";
 import { tryLogExit } from "../util/util.js";
+import { trim } from "../util/templateLiteralsHelper.js";
 
 interface PackageJSON {
   name: string;
@@ -200,7 +201,7 @@ export default class PackgeHandler {
     this.addFile(".eslintrc.cjs", eslintrc);
 
     // 写入prettier的配置文件
-    const prettierignore = `node_modules
+    const prettierignore = trim`node_modules
     dist
     `;
   }
