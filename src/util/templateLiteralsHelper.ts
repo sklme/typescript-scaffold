@@ -100,4 +100,29 @@ function trim(
   return trimLiteralByLine(str);
 }
 
+function trimLeastSpace(
+  strings: TemplateStringsArray,
+  ...substitutions: unknown[]
+) {
+  const str = trimLiteralByLine(getLiteral(strings, substitutions), {
+    trimStart: false,
+    removeEmptyHead: true,
+    removeEmptyTail: true,
+  }).replace(/\t/g, "  "); // 替换tab为space
+  // let lines = str.split("\n");
+  // const leastSpace = lines.reduce((pre: string, current: string) => {
+  //   const matchResult = current.match(/^(\s*)/);
+  //   const startSpace = matchResult ? matchResult[1] : "";
+
+  //   return startSpace.length < compare.length ? startSpace : compare;
+  // });
+  // console.log(1, leastSpace, 1);
+}
+
+trimLeastSpace`
+sd  
+    sdf
+    sdf
+`;
+
 export { trim };

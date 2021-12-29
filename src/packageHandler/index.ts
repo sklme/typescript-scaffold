@@ -225,5 +225,7 @@ export default class PackgeHandler {
     this.installPackages(["husky", "lint-staged"], {
       saveDev: true,
     });
+
+    // 写入lint-staged的配置文件
   }
 }
