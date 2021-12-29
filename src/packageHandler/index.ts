@@ -5,6 +5,7 @@ import shell from "shelljs";
 import pjson from "./congfigTemplate/_package.js";
 import tsconfig from "./congfigTemplate/_tsconfig.js";
 import eslintConfig from "./congfigTemplate/_eslintrc.js";
+import prettierConfig from "./congfigTemplate/_prettierrc.js";
 import { log } from "../util/decorators.js";
 import logUtil from "../util/logUtil.js";
 import { tryLogExit } from "../util/util.js";
@@ -72,6 +73,7 @@ export default class PackgeHandler {
    * @param content 文件内容
    */
   protected addFile(fileName: string, content: string) {
+    console.log(path.resolve(this.appAbsPath, `./${fileName}`));
     writeFileSync(path.resolve(this.appAbsPath, `./${fileName}`), content);
   }
 
@@ -139,10 +141,12 @@ export default class PackgeHandler {
    * 根据配置，安装选择的包
    */
   main() {
-    // // 初始化packgeJSON
-    // this.initPackageJSON();
-    // // 安装typescript
-    // this.initTypeScript();
+    // 初始化packgeJSON
+    this.initPackageJSON();
+    // 安装typescript
+    this.initTypeScript();
+    // 安装lint工具
+    this.initEslintAndPrettier();
   }
 
   @log
@@ -187,13 +191,18 @@ export default class PackgeHandler {
   @log("eslint安装")
   initEslintAndPrettier() {
     // 安装所有的依赖包
-    this.installPackages([
-      "eslint",
-      "prettier",
-      "@typescript-eslint/parser", // typescript eslint的parser
-      "@typescript-eslint/eslint-plugin", // typescript eslint的配置
-      "eslint-config-prettier", // prettier为了兼容eslint，需要用这份文件关掉一些规则
-    ]);
+    this.installPackages(
+      [
+        "eslint",
+        "prettier",
+        "@typescript-eslint/parser", // typescript eslint的parser
+        "@typescript-eslint/eslint-plugin", // typescript eslint的配置
+        "eslint-config-prettier", // prettier为了兼容eslint，需要用这份文件关掉一些规则
+      ],
+      {
+        saveDev: true,
+      },
+    );
 
     // 写入eslint的配置文件
     const eslintJSON = JSON.stringify(eslintConfig, undefined, 2);
@@ -201,8 +210,12 @@ export default class PackgeHandler {
     this.addFile(".eslintrc.cjs", eslintrc);
 
     // 写入prettier的配置文件
-    const prettierignore = trim`node_modules
+    const prettierignore = trim`
+    node_modules
     dist
     `;
+    const prettierrc = JSON.stringify(prettierConfig, undefined, 2);
+    this.addFile(".prettierignore", prettierignore);
+    this.addFile(".prettierrc.json", prettierrc);
   }
 }
