@@ -4,6 +4,7 @@ import path from "path";
 import shell from "shelljs";
 import pjson from "./congfigTemplate/_package.js";
 import tsconfig from "./congfigTemplate/_tsconfig.js";
+import eslintConfig from "./congfigTemplate/_eslintrc.js";
 import { log } from "../util/decorators.js";
 import logUtil from "../util/logUtil.js";
 import { tryLogExit } from "../util/util.js";
@@ -29,7 +30,7 @@ export default class PackgeHandler {
   // 项目的绝对地址
   appAbsPath: string;
 
-  constructor(public appName: string) {
+  constructor(public appName: string, public features: Features[] = []) {
     this.initJSON = Object.assign({}, pjson, {
       name: appName,
       author: os.userInfo().username,
@@ -39,6 +40,11 @@ export default class PackgeHandler {
 
     // 检查yarn还是npm环境
     this.detectYarnOrNPM();
+  }
+
+  setFeatures(features: Features[]) {
+    // features
+    this.features = features;
   }
 
   // 检查环境，决定使用npm或者yarn
@@ -132,8 +138,15 @@ export default class PackgeHandler {
    * 根据配置，安装选择的包
    */
   main() {
-    // 安装typescript
-    this.initTypeScript();
+    // // 初始化packgeJSON
+    // this.initPackageJSON();
+    // // 安装typescript
+    // this.initTypeScript();
+  }
+
+  @log
+  initNVMAndNPM() {
+    //
   }
 
   /**
@@ -143,9 +156,6 @@ export default class PackgeHandler {
   initPackageJSON() {
     // 初始化packge.json
     this.addFile("package.json", JSON.stringify(this.initJSON, undefined, 2));
-
-    // 安装必要的reflect-metadata
-    this.installPackage("reflect-metadata");
   }
 
   /**
@@ -166,7 +176,32 @@ export default class PackgeHandler {
       },
     );
 
+    // 安装必要的reflect-metadata
+    this.installPackage("reflect-metadata");
+
     // 写入typescript的配置
     this.addFile("tsconfig.json", JSON.stringify(tsconfig, undefined, 2));
+  }
+
+  @log("eslint安装")
+  initEslintAndPrettier() {
+    // 安装所有的依赖包
+    this.installPackages([
+      "eslint",
+      "prettier",
+      "@typescript-eslint/parser", // typescript eslint的parser
+      "@typescript-eslint/eslint-plugin", // typescript eslint的配置
+      "eslint-config-prettier", // prettier为了兼容eslint，需要用这份文件关掉一些规则
+    ]);
+
+    // 写入eslint的配置文件
+    const eslintJSON = JSON.stringify(eslintConfig, undefined, 2);
+    const eslintrc = `module.exports = ${eslintJSON}`;
+    this.addFile(".eslintrc.cjs", eslintrc);
+
+    // 写入prettier的配置文件
+    const prettierignore = `node_modules
+    dist
+    `;
   }
 }

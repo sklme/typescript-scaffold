@@ -5,6 +5,14 @@ import logUtil from "./util/logUtil.js";
 import shell from "shelljs";
 import PackageHandler from "./packageHandler/index.js";
 
+interface FeatureCheckboxQuestion extends Omit<CheckboxQuestion, "choices"> {
+  choices: {
+    name: string;
+    checked: boolean;
+    value: Features;
+  }[];
+}
+
 export default class AppIniter {
   // 选择的功能
   feats: string[] = [];
@@ -32,46 +40,36 @@ export default class AppIniter {
     const feats = await this.chooseFeat();
     logUtil.info(`选择的功能:`, ...feats);
 
-    // 初始化packge.json
-    this.packageHandler.initPackageJSON();
+    // 更新packageHandler的features
+    this.packageHandler.setFeatures(feats);
 
-    // 安装typescript系列
-    this.packageHandler.initTypeScript();
+    // 开始安装包
+    this.packageHandler.main();
   }
 
   async chooseFeat() {
-    const { feature } = await inquirer.prompt([
-      {
-        type: "checkbox",
-        name: "feature",
-        message: "选择初始化的功能",
-        choices: [
-          {
-            name: "eslint",
-            value: "eslint",
-            checked: true,
-          },
-          {
-            name: "prettier",
-            value: "prittier",
-            checked: true,
-          },
-          {
-            name: "husky and lint-staged",
-            value: "husky",
-            checked: true,
-          },
-          {
-            name: "commitizen",
-            value: "commitizen",
-            checked: true,
-          },
-        ],
-      } as CheckboxQuestion,
-    ]);
+    const question: FeatureCheckboxQuestion = {
+      type: "checkbox",
+      name: "feature",
+      message: "选择初始化的功能",
+      choices: [
+        {
+          name: "husky and lint-staged",
+          value: "husky",
+          checked: true,
+        },
+        {
+          name: "commitizen",
+          value: "commitizen",
+          checked: true,
+        },
+      ],
+    };
 
-    this.feats = feature as string[];
+    const { feature } = await inquirer.prompt(question);
 
-    return feature as string[];
+    this.feats = feature as Features[];
+
+    return feature as Features[];
   }
 }

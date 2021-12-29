@@ -15,6 +15,7 @@ enum BgColor {
   success = "",
 }
 
+// TODO: 提供一个获取前缀的方法
 type LogNames = keyof typeof Colors;
 function logFunc(
   target: LogUtil,

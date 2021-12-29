@@ -1,0 +1,1 @@
+type Features = "husky" | "commitizen";
