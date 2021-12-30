@@ -21,14 +21,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sklthegoodman/typescript-scaffold.git"
+    "url": "git+https://github.com/sklme/typescript-scaffold.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sklthegoodman/typescript-scaffold/issues"
+    "url": "https://github.com/sklme/typescript-scaffold/issues"
   },
-  "homepage": "https://github.com/sklthegoodman/typescript-scaffold#readme",
+  "homepage": "https://github.com/sklme/typescript-scaffold#readme",
   "devDependencies": {
     "@tsconfig/node16": "^1.0.2",
     "@tsconfig/recommended": "^1.0.1",
