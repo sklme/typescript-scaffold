@@ -11,5 +11,6 @@ void program
   .action(async (name: string) => {
     const initer = new Initer(name);
     await initer.main();
-  })
-  .parseAsync();
+  });
+
+void program.parseAsync();
