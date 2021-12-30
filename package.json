@@ -1,5 +1,5 @@
 {
-  "name": "@iskl/ts-cli",
+  "name": "@iskl/tscli",
   "type": "module",
   "version": "1.0.0",
   "description": "一个typescript的脚手架",
@@ -7,6 +7,11 @@
   "bin": {
     "tscli": "./lib/index.js"
   },
+  "files": [
+    "package.json",
+    "README.md",
+    "lib"
+  ],
   "scripts": {
     "dev:comment": "启动开发环境",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts  -d --show-log 20 -x we",
