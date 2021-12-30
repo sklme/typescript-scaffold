@@ -9,6 +9,7 @@ import { trim, trimLeastSpace } from "../util/templateLiteralsHelper.js";
 import gitignore from "./congfigTemplate/_gitignore.js";
 import npmrc from "./congfigTemplate/_npmrc.js";
 import nvmrc from "./congfigTemplate/_nvmrc.js";
+import czrc from "./congfigTemplate/_czrc.js";
 
 export default class PackageInstaller extends PackgeHandler {
   /**
@@ -29,6 +30,20 @@ export default class PackageInstaller extends PackgeHandler {
     if (this.features.includes("husky")) {
       this.initHusky();
     }
+    // 选择是否安装commitizen
+    if (this.features.includes("commitizen")) {
+      this.initCommitizen();
+    }
+    // git提交初始化的文件
+    this.gitCommit();
+  }
+
+  @log
+  gitCommit() {
+    tryLogExit(() => {
+      shell.exec("git add .");
+      shell.exec("git commit -m 'feat: init'");
+    }, "commit提交失败");
   }
 
   @log("创建初始文件")
@@ -163,5 +178,31 @@ export default class PackageInstaller extends PackgeHandler {
       // Create a hook
       shell.exec('npx husky add .husky/pre-commit "npx lint-staged"');
     }, "安装husky失败");
+  }
+
+  @log("安装commitizen")
+  initCommitizen() {
+    // 安装依赖
+    this.installPackages(
+      [
+        "commitizen",
+        "cz-conventional-changelog", // commitizen的雨来
+        "conventional-changelog-cli", // 生成changlog的cli工具
+      ],
+      {
+        saveDev: true,
+      },
+    );
+
+    // commitizen配置文件
+    this.addFile(".czrc", czrc);
+    tryLogExit(() => {
+      // cz命令
+      shell.exec('npm set-script cz "git add . && npx cz"');
+      // 生成changlog的命令
+      shell.exec(
+        `npm set-script changelog "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md && git commit -m 'chore: CHANGELOG'"`,
+      );
+    });
   }
 }
