@@ -3,7 +3,7 @@ import path from "path";
 import dirHandler from "./dirHandler.js";
 import logUtil from "./util/logUtil.js";
 import shell from "shelljs";
-import PackageHandler from "./packageHandler/index.js";
+import PackageInstaller from "./packageHandler/packInstaller.js";
 
 interface FeatureCheckboxQuestion extends Omit<CheckboxQuestion, "choices"> {
   choices: {
@@ -18,10 +18,10 @@ export default class AppIniter {
   feats: string[] = [];
 
   // 模块初始化工具
-  packageHandler: PackageHandler;
+  packageInstaller: PackageInstaller;
   constructor(public appName: string) {
     // 初始化工具
-    this.packageHandler = new PackageHandler(appName);
+    this.packageInstaller = new PackageInstaller(appName);
   }
 
   // 绝对路径
@@ -41,10 +41,10 @@ export default class AppIniter {
     logUtil.info(`选择的功能:`, ...feats);
 
     // 更新packageHandler的features
-    this.packageHandler.setFeatures(feats);
+    this.packageInstaller.setFeatures(feats);
 
     // 开始安装包
-    this.packageHandler.main();
+    this.packageInstaller.main();
   }
 
   async chooseFeat() {
