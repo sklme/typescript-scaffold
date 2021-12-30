@@ -1,7 +1,7 @@
 export default {
   extends: "@tsconfig/node16/tsconfig.json",
   compilerOptions: {
-    outDir: "./lib",
+    outDir: "./dist",
     module: "ESNext",
     moduleResolution: "node",
     strict: true,

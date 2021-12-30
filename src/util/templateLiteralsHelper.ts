@@ -44,15 +44,17 @@ function trimLiteralByLine(literal: string, options?: Partial<TrimOption>) {
 
   //#region 空行的处理
   if (options.removeEmptyLine) {
-    lines = lines.filter((s) => s);
+    lines = lines.filter((s) => {
+      return !s.match(/^\s*$/);
+    });
   } else {
     if (options.removeEmptyHead) {
-      if (!lines[0]) {
+      if (lines[0].match(/^\s*$/)) {
         lines.splice(0, 1);
       }
     }
     if (options.removeEmptyTail) {
-      if (!lines[lines.length - 1]) {
+      if (lines[lines.length - 1].match(/^\s*$/)) {
         lines.splice(lines.length - 1, 1);
       }
     }
@@ -109,20 +111,28 @@ function trimLeastSpace(
     removeEmptyHead: true,
     removeEmptyTail: true,
   }).replace(/\t/g, "  "); // 替换tab为space
-  // let lines = str.split("\n");
-  // const leastSpace = lines.reduce((pre: string, current: string) => {
-  //   const matchResult = current.match(/^(\s*)/);
-  //   const startSpace = matchResult ? matchResult[1] : "";
+  let lines = str.split("\n");
+  const leastSpaceLine = lines.reduce((pre, current) => {
+    const matchResult = current.match(/^(\s*)/);
+    const startSpace = matchResult ? matchResult[1] : "";
+    const preMatchResult = pre.match(/^(\s*)/);
+    const preStartSpace = preMatchResult ? preMatchResult[1] : "";
+    return preStartSpace.length > startSpace.length ? current : pre;
 
-  //   return startSpace.length < compare.length ? startSpace : compare;
-  // });
-  // console.log(1, leastSpace, 1);
+    // return startSpace.length < compare.length ? startSpace : compare;
+  });
+
+  const match = leastSpaceLine.match(/^(\s*)/);
+  const trimSpace = match ? match[1] : "";
+
+  // 去掉对应的缩进
+  lines = lines.map((line) => {
+    // return line.replace(/^/)
+    const regex = new RegExp(`^${trimSpace}`);
+    return line.replace(regex, "");
+  });
+
+  return lines.join("\n");
 }
 
-trimLeastSpace`
-sd  
-    sdf
-    sdf
-`;
-
-export { trim };
+export { trim, trimLeastSpace };

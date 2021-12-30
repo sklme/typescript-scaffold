@@ -1,3 +1,10 @@
+import chalk from "chalk";
+
+function logCyan(...str: string[]) {
+  str = str.map((s) => chalk.cyan(s));
+  console.log(...str);
+}
+
 /**
  * log的装饰器构造函数
  * @param name log的名字
@@ -28,11 +35,11 @@ function log(
     ) {
       const originMethod = descriptor.value;
       descriptor.value = function (...args: unknown[]) {
-        console.log(
+        logCyan(
           `执行 ${targetOrName}(${pName})， 参数: [${args.join(", ")}]...`,
         );
         originMethod && originMethod.apply(this, args);
-        console.log(`结束执行 ${targetOrName}(${pName})`);
+        logCyan(`结束执行 ${targetOrName}(${pName})`);
       };
     };
   }
@@ -40,9 +47,9 @@ function log(
   if (descriptor && pName) {
     const originMethod = descriptor?.value;
     descriptor.value = function (...args: unknown[]) {
-      console.log(`开始执行 ${pName || ""}，参数: [${args.join(", ")}]...`);
+      logCyan(`开始执行 ${pName || ""}，参数: [${args.join(", ")}]...`);
       originMethod && originMethod.apply(this, args);
-      console.log(`结束执行 ${pName || ""}`);
+      logCyan(`结束执行 ${pName || ""}`);
     };
   }
 }
