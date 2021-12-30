@@ -116,11 +116,12 @@ export default class PackageInstaller extends PackgeHandler {
     // 写入typescript的配置
     this.addFile("tsconfig.json", JSON.stringify(tsconfig, undefined, 2));
     // npm 增加开发的脚本
-    shell.exec('npm set-script dev "tsc -w & nodemon -w dist dist/index.js"');
-
     const con =
       'tsc && concurrently --kill-others --name "BUILD AND RUN "  -c "bgBlue.bold,bgMagenta.bold" "tsc -w" "nodemon -q -w dist dist/index.js"';
-    shell.exec(`npm set-script dev-concurrently '${con}'`);
+    shell.exec(`npm set-script dev '${con}'`);
+    shell.exec(
+      'npm set-script dev-backup "tsc -w & nodemon -w dist dist/index.js"',
+    );
   }
 
   @log("eslint安装")
