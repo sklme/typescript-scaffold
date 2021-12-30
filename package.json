@@ -1,8 +1,8 @@
 {
   "name": "@iskl/ts-cli",
   "type": "module",
-  "version": "0.0.1",
-  "description": "",
+  "version": "1.0.0",
+  "description": "一个typescript的脚手架",
   "main": "./lib/index.js",
   "bin": {
     "tscli": "./lib/index.js"
