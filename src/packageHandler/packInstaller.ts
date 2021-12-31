@@ -202,7 +202,7 @@ export default class PackageInstaller extends PackgeHandler {
       shell.exec('npm set-script cz "git add . && npx cz"');
       // 生成changlog的命令
       shell.exec(
-        `npm set-script changelog "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md && git commit -m 'chore: CHANGELOG'"`,
+        `npm set-script changelog "conventional-changelog -p angular -i CHANGELOG.md -s -r && git add CHANGELOG.md && git commit -m 'chore: CHANGELOG'"`,
       );
     });
   }
